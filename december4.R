@@ -6,8 +6,6 @@ library(purrr)
 library(magrittr)
 library(readr)
 
-?read_csv
-
 rooms <- read_lines("input_day_4.txt")
 
 #test_str <- "aaaaa-bbb-z-y-x-123[abxyz]"
@@ -45,7 +43,15 @@ paste0('Answer 1: ',sum(sector_id[valid]))
 
 #Part 2
 
-rot_n_chr('a',13)
+rot_n_chr <- function (ch,n) {
+  index_1 <- n+1
+  index_2 <- n+26
+  a = c(letters)
+  b = rep(letters,40)[index_1:index_2]
+  r13 = which(a == ch)
+  if(length(r13) > 0) b[r13] 
+  else ch
+}
 
 rot_n <- function(string,n) {
   paste(lapply(unlist(c(strsplit(string,NULL))),function(x) { rot_n_chr(x,n) }), sep="", collapse="")
