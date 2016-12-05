@@ -7,23 +7,6 @@ library(lambda.r)
 
 #https://cartesianfaith.com/2013/01/05/infinite-generators-in-r/
 
-
-seq.gen(start) %as%
-{
-  value <- start - 1
-  function() {
-    value <<- value + 1
-    return(value)
-  }
-}
-
-seq.gen(start, stop, step=1) %when% {
-  is.character(start)
-  is.character(stop)
-} %as% {
-  seq.gen(as.Date(start), as.Date(stop), step)
-}
-
 seq.gen(start, stop=Inf, step=1) %as%
 {
   first <- value <- start - step
