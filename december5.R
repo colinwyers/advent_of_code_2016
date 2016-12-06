@@ -37,31 +37,41 @@ iapply(iterator, fn, simplify=TRUE, formatter=function(x) format(x,"%Y-%m-%d")) 
 num.fn <- seq.gen(0,Inf)
 
 num.fn(reset=TRUE)
+result_list <- list()
 
-repeat{
-  n <- num.fn()
+find_pw_letter <- function(seed, n = 0) { 
   print(n)
-  hash <- md5(paste0('abc',n))
+  hash <- md5(paste0(seed,n))
   
   if(substring(hash,1,5)=='00000'){
     return(list(value=substring(hash,6,6),count=n))
     break
   }
+  
+  newn <- n+1
+  
+  find_pw_letter(seed,newn)
+  
 }
 
+find_pw_letter('abc')
+
+ptm <- proc.time()
+
 num.fn(reset=TRUE)
-result_list <- list()
+#result_list <- list()
 
 repeat{
   n <- num.fn()
-  print(n)
-  hash <- md5(paste0('abc',n))
+  hash <- md5(paste0('wtnhxymk',n))
   
   if(substring(hash,1,5)=='00000'){
     result_list <- append(result_list,list(list(value=substring(hash,6,6),count=n)))
     break
   }
 }
+
+proc.time() - ptm
 
 while(continue){
   n <- num.fn()
